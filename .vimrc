@@ -33,6 +33,8 @@ set autoindent
 set expandtab
 set backspace=start,indent
 
+set incsearch
+
 " I'm so nice to Windoze
 set shellslash
 
