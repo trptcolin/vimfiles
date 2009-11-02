@@ -1,4 +1,4 @@
-" F vi
+" F--- vi
 set nocompatible
 
 filetype on
@@ -6,6 +6,8 @@ filetype plugin on
 filetype indent on
 
 syntax on
+
+autocmd filetype lisp,scheme,art setlocal equalprg='/Users/colin/.vim/scheme/scmindent.scm'
 
 set lazyredraw
 
