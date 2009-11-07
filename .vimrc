@@ -7,8 +7,6 @@ filetype indent on
 
 syntax on
 
-autocmd filetype lisp,scheme,art setlocal equalprg='/Users/colin/.vim/scheme/scmindent.scm'
-
 set lazyredraw
 
 " completion on the command line
@@ -23,8 +21,7 @@ set wrap
 " no beeps
 set vb
 
-" Get rid of goofy buttons
-set guioptions=ac
+set guioptions=aec
 
 let mapleader = ","
 
