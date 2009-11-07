@@ -1,4 +1,4 @@
-" F--- vi
+" F vi
 set nocompatible
 
 filetype on
@@ -21,7 +21,8 @@ set wrap
 " no beeps
 set vb
 
-set guioptions=aec
+" no goofy buttons
+set guioptions=ac
 
 let mapleader = ","
 
@@ -94,4 +95,8 @@ noremap <silent> ,ml <C-W>L
 noremap <silent> ,mk <C-W>K
 noremap <silent> ,mh <C-W>H
 noremap <silent> ,mj <C-W>J
+
+" Remap omni-completion to CTRL+Space
+nmap <C-space> ea<C-n>
+imap <C-space> <C-n>
 
