@@ -1,4 +1,4 @@
-" F--- vi
+" F vi
 set nocompatible
 
 filetype on
@@ -6,7 +6,6 @@ filetype plugin on
 filetype indent on
 
 syntax on
-
 
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd filetype lisp,scheme,art setlocal equalprg='/Users/colin/.vim/scheme/scmindent.scm'
@@ -25,7 +24,7 @@ set wrap
 " no beeps
 set vb
 
-" Get rid of goofy buttons
+" no goofy buttons
 set guioptions=ac
 
 let mapleader = ","
@@ -100,4 +99,7 @@ noremap <silent> ,mk <C-W>K
 noremap <silent> ,mh <C-W>H
 noremap <silent> ,mj <C-W>J
 
+" Remap omni-completion to CTRL+Space
+nmap <C-space> ea<C-n>
+imap <C-space> <C-n>
 
