@@ -7,6 +7,8 @@ filetype indent on
 
 syntax on
 
+
+autocmd BufWritePre * :%s/\s\+$//e
 autocmd filetype lisp,scheme,art setlocal equalprg='/Users/colin/.vim/scheme/scmindent.scm'
 
 set lazyredraw
@@ -75,7 +77,7 @@ nmap <silent> ,cd :lcd %:h<CR>
 set grepprg=ack
 set grepformat=%f:%l:%m
 
-:color blackboard  
+:color blackboard
 
 " Move the cursor to the window in the proper direction
 noremap <silent> ,h :wincmd h<cr>
@@ -97,4 +99,5 @@ noremap <silent> ,ml <C-W>L
 noremap <silent> ,mk <C-W>K
 noremap <silent> ,mh <C-W>H
 noremap <silent> ,mj <C-W>J
+
 
