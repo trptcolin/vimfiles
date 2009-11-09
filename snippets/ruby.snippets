@@ -2,7 +2,6 @@
 snippet #!
 	#!/usr/bin/ruby
 
-# New Block
 snippet =b
 	=begin rdoc
 		${1}
@@ -18,6 +17,7 @@ snippet #
 	# =>
 snippet end
 	__END__
+
 snippet case
 	case ${1:object}
 	when ${2:condition}
@@ -59,6 +59,8 @@ snippet until
 	until ${1:condition}
 		${2}
 	end
+
+# Class and Module
 snippet cla class .. end
 	class ${1:`substitute(Filename(), '^.', '\u&', '')`}
 		${2}
@@ -68,24 +70,18 @@ snippet cla class .. initialize .. end
 		def initialize(${2:args})
 			${3}
 		end
-
-
 	end
 snippet cla class .. < ParentClass .. initialize .. end
 	class ${1:`substitute(Filename(), '^.', '\u&', '')`} < ${2:ParentClass}
 		def initialize(${3:args})
 			${4}
 		end
-
-
 	end
 snippet cla ClassName = Struct .. do .. end
 	${1:`substitute(Filename(), '^.', '\u&', '')`} = Struct.new(:${2:attr_names}) do
 		def ${3:method_name}
 			${4}
 		end
-
-
 	end
 snippet cla class BlankSlate .. initialize .. end
 	class ${1:BlankSlate}
@@ -99,11 +95,19 @@ snippet cla-
 	class ${1:`substitute(Filename(), '^.', '\u&', '')`} < DelegateClass(${2:ParentClass})
 		def initialize(${3:args})
 			super(${4:del_obj})
+<<<<<<< HEAD:snippets/ruby.snippets
 
 			${5}
 		end
 
 
+=======
+
+			${5}
+		end
+
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 	end
 snippet mod module .. end
 	module ${1:`substitute(Filename(), '^.', '\u&', '')`}
@@ -112,7 +116,11 @@ snippet mod module .. end
 snippet mod module .. module_function .. end
 	module ${1:`substitute(Filename(), '^.', '\u&', '')`}
 		module_function
+<<<<<<< HEAD:snippets/ruby.snippets
 
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 		${2}
 	end
 snippet mod module .. ClassMethods .. end
@@ -127,9 +135,16 @@ snippet mod module .. ClassMethods .. end
 
 		def self.included(receiver)
 			receiver.extend         ClassMethods
+<<<<<<< HEAD:snippets/ruby.snippets
 			receiver.send :include, InstanceMethods
 		end
 	end
+=======
+		 	receiver.send :include, InstanceMethods
+		end
+	end
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 # attr_reader
 snippet r
 	attr_reader :${1:attr_names}
@@ -139,23 +154,47 @@ snippet w
 # attr_accessor
 snippet rw
 	attr_accessor :${1:attr_names}
+<<<<<<< HEAD:snippets/ruby.snippets
 # include Enumerable
 snippet Enum
 	include Enumerable
 
+=======
+
+# include Enumerable
+snippet Enum
+	include Enumerable
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 	def each(&block)
 		${1}
 	end
 # include Comparable
 snippet Comp
 	include Comparable
+<<<<<<< HEAD:snippets/ruby.snippets
 
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 	def <=>(other)
 		${1}
 	end
 # extend Forwardable
 snippet Forw-
 	extend Forwardable
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+snippet def
+	def ${1:method_name}
+		${2}
+	end
+snippet deft
+	def test_${1:case_name}
+		${2}
+	end
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 # def self
 snippet defs
 	def self.${1:class_method_name}
@@ -172,6 +211,10 @@ snippet defds
 	def_delegators :${1:@del_obj}, :${2:del_methods}
 snippet am
 	alias_method :${1:new_name}, :${2:old_name}
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet app
 	if __FILE__ == $PROGRAM_NAME
 		${1}
@@ -186,6 +229,10 @@ snippet usau
 	unless ARGV.${1}
 		abort "Usage: #{$PROGRAM_NAME} ${2:ARGS_GO_HERE}"${3}
 	end
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet array
 	Array.new(${1:10}) { |${2:i}| ${3} }
 snippet hash
@@ -200,6 +247,10 @@ snippet Dir Dir[".."]
 	Dir[${1:"glob/**/*.rb"}]${2}
 snippet dir
 	Filename.dirname(__FILE__)
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet deli
 	delete_if { |${1:e}| ${2} }
 snippet fil
@@ -220,6 +271,10 @@ snippet upt
 	upto(${1:1.0/0.0}) { |${2:n}| ${3} }
 snippet loo
 	loop { ${1} }
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet ea
 	each { |${1:e}| ${2} }
 snippet eab
@@ -250,12 +305,20 @@ snippet map
 	map { |${1:e}| ${2} }
 snippet mapwi-
 	enum_with_index.map { |${1:e}, ${2:i}| ${3} }
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet sor
 	sort { |a, b| ${1} }
 snippet sorb
 	sort_by { |${1:e}| ${2} }
 snippet ran
 	sort_by { rand }
+<<<<<<< HEAD:snippets/ruby.snippets
+=======
+
+>>>>>>> 03bb6360ff7fdda8557fcb096c5ed162f84c6f1d:snippets/ruby.snippets
 snippet all
 	all? { |${1:e}| ${2} }
 snippet any
@@ -309,11 +372,14 @@ snippet unif
 # option_parse {}
 snippet optp
 	require "optparse"
-
 	options = {${1:default => "args"}}
 
 	ARGV.options do |opts|
 		opts.banner = "Usage: #{File.basename($PROGRAM_NAME)}
+	options = {${1:default => "args"}}
+
+	ARGV.options do |opts|
+		opts.banner = \"Usage: #{File.basename($PROGRAM_NAME)}
 snippet opt
 	opts.on( "-${1:o}", "--${2:long-option-name}", ${3:String},
 	         "${4:Option description.}") do |${5:opt}|
@@ -418,3 +484,8 @@ snippet tas
 	task :${2:task_name => [:dependent, :tasks]} do
 		${3}
 	end
+	desc "${1:Task description}"
+	task :${2:task_name => [:dependent, :tasks]} do
+		${3}
+	end
+
