@@ -48,6 +48,7 @@ let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 70
 let g:fuzzy_ceiling = 100000
 
+map <C-L> ggVG=
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
 
