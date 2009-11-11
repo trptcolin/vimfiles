@@ -51,6 +51,8 @@ let g:fuzzy_ceiling = 100000
 map <C-L> ggVG=
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
+map <leader>f :FuzzyFinderFile<CR>
+map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
 
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <leader>c :Bclose<CR>
