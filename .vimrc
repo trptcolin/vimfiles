@@ -55,6 +55,8 @@ map <leader>f :FuzzyFinderFile<CR>
 map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
 
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+let g:NERDTreeChDirMode=2
+let g:NERDTreeShowHidden=1
 map <leader>c :Bclose<CR>
 
 " Edit or load .vimrc
