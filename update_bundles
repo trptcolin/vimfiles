@@ -1,0 +1,107 @@
+#!/usr/bin/env ruby
+
+git_bundles = [
+  "git://github.com/msanders/snipmate.vim.git",
+  "git://github.com/scrooloose/nerdtree.git",
+  "git://github.com/tpope/vim-cucumber.git",
+  "git://github.com/tpope/vim-fugitive.git",
+  "git://github.com/tpope/vim-git.git",
+  "git://github.com/tpope/vim-haml.git",
+  "git://github.com/tpope/vim-markdown.git",
+  "git://github.com/tpope/vim-rails.git",
+  "git://github.com/tpope/vim-repeat.git",
+  "git://github.com/tpope/vim-surround.git",
+  "git://github.com/tsaleh/vim-supertab.git",
+  "git://github.com/vim-ruby/vim-ruby.git",
+	"git://github.com/wincent/Command-T.git",
+  "git://github.com/tpope/vim-unimpaired.git",
+  "git://github.com/altercation/vim-colors-solarized.git",
+  "git://github.com/mileszs/ack.vim.git",
+  "git://github.com/edsono/vim-matchit.git",
+  "git://github.com/benmills/vimux.git",
+  "git://github.com/pangloss/vim-javascript",
+  "git://github.com/kchmck/vim-coffee-script.git",
+  "git://github.com/vim-scripts/VimClojure.git"
+]
+
+vim_org_scripts = [
+  ["jquery",        "12276", "syntax"]
+]
+
+hg_bundles = [
+	# e.g.
+  # ["http://bitbucket.org/kotarak/vimclojure", "vim"]
+]
+
+vim_org_zips = [
+  ["taglist", "7701"],
+  ["ColorSamplerPack", "12179"],
+  ["fitnesse.vim", "10658"]
+]
+
+other_zips = [
+  ## e.g.
+  #["http://code.google.com/p/conque/downloads/detail?name=conque_2.1.zip", "conqueterm"]
+]
+
+require 'fileutils'
+require 'open-uri'
+
+bundles_dir = File.join(File.dirname(__FILE__), "bundle")
+
+FileUtils.mkdir_p(bundles_dir)
+FileUtils.cd(bundles_dir)
+
+git_bundles.each do |url|
+  dir = url.split('/').last.sub(/\.git$/, '')
+	if File.exists?(dir)
+		puts "  Pulling from #{url} into #{dir}"
+		`cd #{dir} && git reset --hard && git pull && cd ..`
+	else
+		puts "  Unpacking #{url} into #{dir}"
+		`git clone #{url} #{dir}`
+	end
+end
+
+hg_bundles.each do |url, subdir|
+	dir = url.split('/').last
+	puts "  Unpacking #{url} into #{dir}"
+	FileUtils.rm_rf(dir)
+	system("hg", "clone", url, "#{dir}-temp", :out => '/dev/null')
+	system("mv", "#{dir}-temp/#{subdir}", dir, :out => '/dev/null')
+	FileUtils.rm_rf("#{dir}-temp")
+end
+
+vim_org_scripts.each do |name, script_id, script_type|
+  puts "  Downloading #{name}"
+  local_file = File.join(name, script_type, "#{name}.vim")
+  FileUtils.mkdir_p(File.dirname(local_file))
+  File.open(local_file, "w") do |file|
+    file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+  end
+end
+
+def download_and_unpack(name, zip_url)
+	FileUtils.rm_rf("/tmp/#{name}.zip")
+	FileUtils.rm_rf("/tmp/#{name}")
+  puts "  Downloading #{name}"
+  FileUtils.mkdir_p(File.dirname(name))
+  File.open("/tmp/#{name}.zip", "w") do |file|
+    file << open(zip_url).read
+  end
+  system("unzip", "/tmp/#{name}.zip", "-d", "/tmp/#{name}", :out => "/dev/null")
+  system("cp", "-R", "/tmp/#{name}", ".", :out => "/dev/null")
+end
+
+vim_org_zips.each do |name, script_id|
+  download_and_unpack(name, "http://www.vim.org/scripts/download_script.php?src_id=#{script_id}")
+end
+
+other_zips.each do |url, name|
+  download_and_unpack(name, url)
+end
+
+puts "####################"
+puts "# Don't forget to build extensions (e.g. Command-T) if you haven't already)"
+puts "####################"
+

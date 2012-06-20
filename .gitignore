@@ -1,3 +1,4 @@
 *.swp
 .viminfo
-.vimfuzzyfinder
+.netrwhist
+bundle
