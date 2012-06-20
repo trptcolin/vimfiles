@@ -1,4 +1,9 @@
-" F vi
+" Needed on some linux distros.
+" see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
+filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
 set nocompatible
 
 filetype on
@@ -7,22 +12,24 @@ filetype indent on
 
 syntax on
 
+" blow away trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd filetype lisp,scheme,art setlocal equalprg='/Users/colin/.vim/scheme/scmindent.scm'
 
-set lazyredraw
+" set lazyredraw
 
 " completion on the command line
 set wildmenu
-
 " numbered lines
 set number
-set nohlsearch
+" set nohlsearch
 set paste
-" word wrapping
-set wrap
+" " word wrapping
+" set nowrap
 " no beeps
 set vb
+
+" show line / column numbers
+set ruler
 
 " no goofy buttons
 set guioptions=ac
@@ -30,81 +37,85 @@ set guioptions=ac
 let mapleader = ","
 
 set tabstop=2
-set smarttab
+" set smarttab
 set shiftwidth=2
 set autoindent
 set expandtab
-set backspace=start,indent
+" set backspace=start,indent
+"
+" set incsearch
+"
+" " I'm so nice to Windoze
+" set shellslash
+"
+" set statusline=%F%m%r%h%w\ [Line=%03l,Col=%03v][%p%%]\ [ASCII=\%03.3b]\ [Format=%{&ff}]\ [Type=%y]
+" set laststatus=2
+" map <C-L> ggVG=
 
-set incsearch
+map <leader>n :cn<CR>
+map <leader>p :cp<CR>
 
-" I'm so nice to Windoze
-set shellslash
-
-set statusline=%F%m%r%h%w\ [Line=%03l,Col=%03v][%p%%]\ [ASCII=\%03.3b]\ [Format=%{&ff}]\ [Type=%y]
-set laststatus=2
-
-let g:fuzzy_ignore = "*.log"
-let g:fuzzy_matching_limit = 70
-let g:fuzzy_ceiling = 100000
-
-map <C-L> ggVG=
-map <leader>t :FuzzyFinderTextMate<CR>
-map <leader>b :FuzzyFinderBuffer<CR>
-map <leader>f :FuzzyFinderFile<CR>
-map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
-
-map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+map <leader>dt :execute 'NERDTreeToggle ' . getcwd()<CR>
 let g:NERDTreeChDirMode=2
 let g:NERDTreeShowHidden=1
-map <leader>c :Bclose<CR>
 
-" Edit or load .vimrc
-nmap <silent> ,ev :e $MYVIMRC<CR>
-nmap <silent> ,sv :so $MYVIMRC<CR>
+let g:CommandTMaxFiles=40000
 
+
+" " Edit or load .vimrc
+" nmap <silent> ,ev :e $MYVIMRC<CR>
+" nmap <silent> ,sv :so $MYVIMRC<CR>
+"
 " Replace tabs with spaces
 nmap <silent> ,rr :1,$retab<CR>
 
-" Toggle paste mode (indent weirdness)
-nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
-
-" Toggle highlighted search
-nmap <silent> ,n :set invhls<CR>:set hls?<CR>
+" " Toggle paste mode (indent weirdness)
+" nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
+" " Toggle highlighted search
+" nmap <silent> ,n :set invhls<CR>:set hls?<CR>
 
 " Toggle word wrapping
 nmap <silent> ,w :set invwrap<CR>:set wrap?<CR>
 
-" cd to directory of the current file
-nmap <silent> ,cd :lcd %:h<CR>
+" " cd to directory of the current file
+" nmap <silent> ,cd :lcd %:h<CR>
 
-set grepprg=ack
-set grepformat=%f:%l:%m
+" set grepprg=ack
+" set grepformat=%f:%l:%m
 
-:color blackboard
+color vividchalk
 
 " Move the cursor to the window in the proper direction
-noremap <silent> ,h :wincmd h<cr>
-noremap <silent> ,j :wincmd j<cr>
-noremap <silent> ,k :wincmd k<cr>
-noremap <silent> ,l :wincmd l<cr>
-
-" Close the window in the proper direction
-noremap <silent> ,cj :wincmd j<cr>:close<cr>
-noremap <silent> ,ck :wincmd k<cr>:close<cr>
-noremap <silent> ,ch :wincmd h<cr>:close<cr>
-noremap <silent> ,cl :wincmd l<cr>:close<cr>
+noremap <silent> <leader>h :wincmd h<cr>
+noremap <silent> <leader>j :wincmd j<cr>
+noremap <silent> <leader>k :wincmd k<cr>
+noremap <silent> <leader>l :wincmd l<cr>
+noremap <silent> <C-h> :wincmd h<cr>
+noremap <silent> <C-j> :wincmd j<cr>
+noremap <silent> <C-k> :wincmd k<cr>
+noremap <silent> <C-l> :wincmd l<cr>
 
 " Close the current window
 noremap <silent> ,cc :close<cr>
 
-" Move the current window to the proper direction from the main Vim window
-noremap <silent> ,ml <C-W>L
-noremap <silent> ,mk <C-W>K
-noremap <silent> ,mh <C-W>H
-noremap <silent> ,mj <C-W>J
+" Prompt for a command to run
+map <LocalLeader>vp :PromptVimTmuxCommand<CR>
 
-" Remap omni-completion to CTRL+Space
-nmap <C-space> ea<C-n>
-imap <C-space> <C-n>
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <LocalLeader>vs "vy :call RunVimTmuxCommand(@v)<CR>
+
+" Select current paragraph and send it to tmux
+nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
+
+
+" Let's remember some things, like where the .vim folder is.
+if has("win32") || has("win64")
+    let windows=1
+    let vimfiles=$HOME . "/vimfiles"
+    let sep=";"
+else
+    let windows=0
+    let vimfiles=$HOME . "/.vim"
+    let sep=":"
+endif
 
