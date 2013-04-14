@@ -97,7 +97,7 @@ nmap <silent> ,w :set invwrap<CR>:set wrap?<CR>
 " set grepprg=ack
 " set grepformat=%f:%l:%m
 
-color vividchalk
+color darkbone
 
 " Move the cursor to the window in the proper direction
 noremap <silent> <leader>h :wincmd h<cr>
