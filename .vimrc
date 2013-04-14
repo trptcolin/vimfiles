@@ -52,7 +52,7 @@ set expandtab
 map <leader>n :cn<CR>
 map <leader>p :cp<CR>
 
-map <leader>dt :execute 'NERDTreeToggle ' . getcwd()<CR>
+map <leader>dt :execute 'NERDTreeToggle ' . '"' . getcwd() . '"'<CR>
 let g:NERDTreeChDirMode=2
 let g:NERDTreeShowHidden=1
 
