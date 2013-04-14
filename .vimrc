@@ -168,3 +168,8 @@ nmap <LocalLeader>vl V<LocalLeader>vs<CR>k
 "    let vimfiles=$HOME . "/.vim"
 "    let sep=":"
 "endif
+
+if &term == 'xterm' || &term == 'screen'
+  set t_Co=256
+endif
+
