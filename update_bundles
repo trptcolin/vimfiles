@@ -26,7 +26,8 @@ git_bundles = [
   "git://github.com/vim-scripts/paredit.vim.git",
   "git://github.com/pgr0ss/vimux-ruby-test.git",
   "git://github.com/jnwhiteh/vim-golang.git",
-  "git://github.com/tpope/vim-fireplace.git"
+  "git://github.com/tpope/vim-fireplace.git",
+  "git://github.com/vim-scripts/CSApprox.git"
 ]
 
 vim_org_scripts = [
