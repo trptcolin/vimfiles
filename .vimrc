@@ -67,8 +67,6 @@ autocmd FileType clojure setlocal lispwords+=describe,it,context
 au BufNewFile,BufRead *.hiccup set filetype=clojure
 au BufNewFile,BufRead *.cljs set filetype=clojure
 
-let g:no_foreplay_classpath = 1
-
 "set textwidth=81
 " >80 chars BAD
 "match ErrorMsg '\%>80v.\+'
