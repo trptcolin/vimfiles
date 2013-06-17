@@ -45,6 +45,7 @@ au BufNewFile,BufRead *.cljs set filetype=clojure
 
 nmap <silent> <leader>rr :1,$retab<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
+nmap <silent> <leader>q :set invpaste<CR>:set paste?<CR>
 
 noremap <silent> <leader>h :wincmd h<cr>
 noremap <silent> <leader>j :wincmd j<cr>
