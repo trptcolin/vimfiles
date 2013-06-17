@@ -22,8 +22,6 @@ git_bundles = [
   "git://github.com/benmills/vimux.git",
   "git://github.com/pangloss/vim-javascript",
   "git://github.com/kchmck/vim-coffee-script.git",
-  #"git://github.com/vim-scripts/VimClojure.git",
-  #"git://github.com/vim-scripts/paredit.vim.git",
   "git://github.com/pgr0ss/vimux-ruby-test.git",
   "git://github.com/jnwhiteh/vim-golang.git",
   "git://github.com/tpope/vim-fireplace.git",
@@ -31,23 +29,14 @@ git_bundles = [
   "git://github.com/guns/vim-clojure-static.git",
   "git://github.com/tpope/vim-dispatch.git",
   "git://github.com/vim-scripts/CSApprox.git",
-  "git://github.com/terryma/vim-expand-region"
-]
-
-vim_org_scripts = [
-  ["jquery",        "12276", "syntax"]
+  "git://github.com/terryma/vim-expand-region.git",
+  "git://github.com/vim-scripts/Colour-Sampler-Pack.git",
+  "git://github.com/vim-scripts/jquery.git"
 ]
 
 hg_bundles = [
 	# e.g.
-  # ["http://bitbucket.org/kotarak/vimclojure", "vim"]
   ["https://bitbucket.org/kovisoft/paredit", ""]
-]
-
-vim_org_zips = [
-  ["taglist", "7701"],
-  ["ColorSamplerPack", "12179"],
-  ["fitnesse.vim", "10658"]
 ]
 
 require 'fileutils'
@@ -77,35 +66,6 @@ if system("which", "hg")
     system("hg", "clone", url, "#{dir}-temp", :out => '/dev/null')
     system("mv", "#{dir}-temp/#{subdir}", dir, :out => '/dev/null')
     FileUtils.rm_rf("#{dir}-temp")
-  end
-end
-
-if system("which", "unzip")
-  vim_org_scripts.each do |name, script_id, script_type|
-    puts "  Downloading #{name}"
-    local_file = File.join(name, script_type, "#{name}.vim")
-    FileUtils.mkdir_p(File.dirname(local_file))
-    File.open(local_file, "w") do |file|
-      file << Kernel.open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
-    end
-  end
-end
-
-def download_and_unpack(name, zip_url)
-	FileUtils.rm_rf("/tmp/#{name}.zip")
-	FileUtils.rm_rf("/tmp/#{name}")
-  puts "  Downloading #{name}"
-  FileUtils.mkdir_p(File.dirname(name))
-  File.open("/tmp/#{name}.zip", "w") do |file|
-    file << open(zip_url).read
-  end
-  system("unzip", "/tmp/#{name}.zip", "-d", "/tmp/#{name}", :out => "/dev/null")
-  system("cp", "-R", "/tmp/#{name}", ".", :out => "/dev/null")
-end
-
-if system("which", "unzip")
-  vim_org_zips.each do |name, script_id|
-    download_and_unpack(name, "http://www.vim.org/scripts/download_script.php?src_id=#{script_id}")
   end
 end
 
