@@ -23,14 +23,15 @@ git_bundles = [
   "git://github.com/pangloss/vim-javascript",
   "git://github.com/kchmck/vim-coffee-script.git",
   #"git://github.com/vim-scripts/VimClojure.git",
-  "git://github.com/vim-scripts/paredit.vim.git",
+  #"git://github.com/vim-scripts/paredit.vim.git",
   "git://github.com/pgr0ss/vimux-ruby-test.git",
   "git://github.com/jnwhiteh/vim-golang.git",
   "git://github.com/tpope/vim-fireplace.git",
   "git://github.com/tpope/vim-classpath.git",
   "git://github.com/guns/vim-clojure-static.git",
   "git://github.com/tpope/vim-dispatch.git",
-  "git://github.com/vim-scripts/CSApprox.git"
+  "git://github.com/vim-scripts/CSApprox.git",
+  "git://github.com/terryma/vim-expand-region"
 ]
 
 vim_org_scripts = [
@@ -40,6 +41,7 @@ vim_org_scripts = [
 hg_bundles = [
 	# e.g.
   # ["http://bitbucket.org/kotarak/vimclojure", "vim"]
+  ["https://bitbucket.org/kovisoft/paredit", ""]
 ]
 
 vim_org_zips = [
