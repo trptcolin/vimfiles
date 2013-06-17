@@ -50,11 +50,6 @@ vim_org_zips = [
   ["fitnesse.vim", "10658"]
 ]
 
-other_zips = [
-  ## e.g.
-  #["http://code.google.com/p/conque/downloads/detail?name=conque_2.1.zip", "conqueterm"]
-]
-
 require 'fileutils'
 require 'open-uri'
 
@@ -74,21 +69,25 @@ git_bundles.each do |url|
 	end
 end
 
-hg_bundles.each do |url, subdir|
-	dir = url.split('/').last
-	puts "  Unpacking #{url} into #{dir}"
-	FileUtils.rm_rf(dir)
-	system("hg", "clone", url, "#{dir}-temp", :out => '/dev/null')
-	system("mv", "#{dir}-temp/#{subdir}", dir, :out => '/dev/null')
-	FileUtils.rm_rf("#{dir}-temp")
+if system("which", "hg")
+  hg_bundles.each do |url, subdir|
+    dir = url.split('/').last
+    puts "  Unpacking #{url} into #{dir}"
+    FileUtils.rm_rf(dir)
+    system("hg", "clone", url, "#{dir}-temp", :out => '/dev/null')
+    system("mv", "#{dir}-temp/#{subdir}", dir, :out => '/dev/null')
+    FileUtils.rm_rf("#{dir}-temp")
+  end
 end
 
-vim_org_scripts.each do |name, script_id, script_type|
-  puts "  Downloading #{name}"
-  local_file = File.join(name, script_type, "#{name}.vim")
-  FileUtils.mkdir_p(File.dirname(local_file))
-  File.open(local_file, "w") do |file|
-    file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+if system("which", "unzip")
+  vim_org_scripts.each do |name, script_id, script_type|
+    puts "  Downloading #{name}"
+    local_file = File.join(name, script_type, "#{name}.vim")
+    FileUtils.mkdir_p(File.dirname(local_file))
+    File.open(local_file, "w") do |file|
+      file << Kernel.open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+    end
   end
 end
 
@@ -104,12 +103,10 @@ def download_and_unpack(name, zip_url)
   system("cp", "-R", "/tmp/#{name}", ".", :out => "/dev/null")
 end
 
-vim_org_zips.each do |name, script_id|
-  download_and_unpack(name, "http://www.vim.org/scripts/download_script.php?src_id=#{script_id}")
-end
-
-other_zips.each do |url, name|
-  download_and_unpack(name, url)
+if system("which", "unzip")
+  vim_org_zips.each do |name, script_id|
+    download_and_unpack(name, "http://www.vim.org/scripts/download_script.php?src_id=#{script_id}")
+  end
 end
 
 puts "####################"
