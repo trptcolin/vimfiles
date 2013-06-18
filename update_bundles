@@ -3,6 +3,7 @@
 git_bundles = [
 	"git://github.com/wincent/Command-T.git",
   "git://github.com/benmills/vimux.git",
+  "git://github.com/christoomey/vim-tmux-navigator.git",
   "git://github.com/edsono/vim-matchit.git",
   "git://github.com/guns/vim-clojure-static.git",
   "git://github.com/jnwhiteh/vim-golang.git",
