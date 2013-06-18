@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 git_bundles = [
-	"git://github.com/wincent/Command-T.git",
+  "git://github.com/wincent/Command-T.git",
   "git://github.com/benmills/vimux.git",
   "git://github.com/christoomey/vim-tmux-navigator.git",
   "git://github.com/edsono/vim-matchit.git",
@@ -34,8 +34,8 @@ git_bundles = [
 ]
 
 hg_bundles = [
-	# e.g.
-  ["https://bitbucket.org/kovisoft/paredit", ""]
+  # e.g.
+  "https://bitbucket.org/kovisoft/paredit"
 ]
 
 require 'fileutils'
@@ -58,7 +58,7 @@ git_bundles.each do |url|
 end
 
 if system("which", "hg")
-  hg_bundles.each do |url, subdir|
+  hg_bundles.each do |url|
     dir = url.split('/').last
     puts "  Unpacking #{url} into #{dir}"
     FileUtils.rm_rf(dir)
