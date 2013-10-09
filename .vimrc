@@ -79,6 +79,8 @@ nmap <LocalLeader>vf ggVG<LocalLeader>vs<CR><C-o><C-o>
 nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
 nmap <LocalLeader>vl V<LocalLeader>vs<CR>k
 
+imap <C-j> <Plug>snipMateNextOrTrigger
+
 " ex mode bites
 nnoremap Q <nop>
 

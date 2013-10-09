@@ -7,7 +7,12 @@ git_bundles = [
   "git://github.com/guns/vim-clojure-static.git",
   "git://github.com/jnwhiteh/vim-golang.git",
   "git://github.com/kchmck/vim-coffee-script.git",
-  "git://github.com/msanders/snipmate.vim.git",
+
+  "git://github.com/tomtom/tlib_vim.git",
+  "git://github.com/MarcWeber/vim-addon-mw-utils.git",
+  "git://github.com/garbas/vim-snipmate.git",
+  "git://github.com/honza/vim-snippets.git",
+
   "git://github.com/pangloss/vim-javascript",
   "git://github.com/pgr0ss/vimux-ruby-test.git",
   "git://github.com/scrooloose/nerdtree.git",
