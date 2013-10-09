@@ -58,6 +58,7 @@ noremap <silent> <C-l> :wincmd l<cr>
 noremap <silent> <leader>cc :close<cr>
 
 map <LocalLeader>t :!ctags -R --langmap="lisp:+.clj" .<CR>
+nmap <Leader>rt :!ctags -R *<CR>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
