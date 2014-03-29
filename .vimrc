@@ -18,6 +18,8 @@ set shiftwidth=2
 set autoindent
 set expandtab
 
+setlocal foldlevelstart=0
+
 let mapleader = ","
 let maplocalleader = "\\"
 
@@ -34,18 +36,20 @@ inoremap <c-u> <esc>viwUi
 nnoremap <c-u> viwU
 
 
-"""""""""""""""
-" Experimenting
+" Experimenting {{{
 inoremap jk <esc>
+vnoremap jk <esc>
 inoremap <esc> <nop>
-"""""""""""""""
+" }}}
 
+" Command line settings {{{
 cnoremap <c-a> <home>
 cnoremap <c-f> <right>
 cnoremap <esc>f <s-right>
 cnoremap <c-b> <left>
 cnoremap <esc>b <s-left>
 cnoremap <c-k> d<end>
+" }}}
 
 noremap <leader>n :cn<CR>
 noremap <leader>p :cp<CR>
@@ -63,11 +67,19 @@ let g:paredit_matchlines=1000
 let vimclojure#FuzzyIndent=1
 let vimclojure#ParenRainbow=1
 
+" Vimscript file settings {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
 augroup no_whitespace
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 
+" Clojure file settings {{{
 augroup filetype_clojure
   autocmd!
   autocmd BufNewFile,BufRead *.hiccup set filetype=clojure
@@ -77,6 +89,13 @@ augroup filetype_clojure
   autocmd FileType clojure setlocal lispwords+=describe,it,context,around
   autocmd FileType clojure setlocal wildignore+=target/**/*
   autocmd FileType clojure vnoremap <buffer> <localleader>ns :s/\(\w\) \{2,}/\1 /<esc>
+augroup END
+" }}}
+
+augroup filetype_markdown
+  autocmd!
+  autocmd FileType markdown onoremap ih :<c-u>execute "normal! ?^[=\\-]\\+$\rkvg_"<cr>
+  autocmd FileType markdown onoremap ah :<c-u>execute "normal! ?^[=\\-]\\+$\rg_vk0"<cr>
 augroup END
 
 augroup comments
@@ -97,6 +116,7 @@ nnoremap <silent> <leader>rr :1,$retab<CR>
 nnoremap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
 nnoremap <silent> <leader>q :set invpaste<CR>:set paste?<CR>
 
+" Window sizing & naviation {{{
 nnoremap - <c-w>-
 nnoremap + <c-w>+
 noremap <silent> <leader>h :wincmd h<cr>
@@ -108,6 +128,7 @@ noremap <silent> <C-j> :wincmd j<cr>
 noremap <silent> <C-k> :wincmd k<cr>
 noremap <silent> <C-l> :wincmd l<cr>
 noremap <silent> <leader>cc :close<cr>
+" }}}
 
 noremap <LocalLeader>t :!ctags -R --langmap="lisp:+.clj" .<CR>
 nnoremap <Leader>rt :!ctags -R *<CR>
@@ -116,16 +137,17 @@ noremap <Leader>rb :call VimuxRunCommand("bundle exec rspec " . bufname("%"))<CR
 noremap <Leader>rp :VimuxPromptCommand<CR>
 noremap <Leader>rl :VimuxRunLastCommand<CR>
 noremap <Leader>ri :VimuxInspectRunner<CR>
-noremap <Leader>rx :VimuxClosePanes<CR>
 noremap <Leader>rq :VimuxCloseRunner<CR>
 noremap <Leader>rs :VimuxInterruptRunner<CR>
 noremap <LocalLeader>vp :VimuxPromptCommand<CR>
-vnoremap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
-nnoremap <LocalLeader>vf ggVG<LocalLeader>vs<CR><C-o><C-o>
-nnoremap <LocalLeader>vs vip<LocalLeader>vs<CR>
-nnoremap <LocalLeader>vl V<LocalLeader>vs<CR>k
+vnoremap <LocalLeader>vs "vy :call VimuxRunCommand(@v, 0)
 
-inoremap <C-j> <Plug>snipMateNextOrTrigger
+" TODO: use functions or something instead of bindings?
+nmap <LocalLeader>vf ggVG<LocalLeader>vs<CR><C-o><C-o>
+nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
+nmap <LocalLeader>vl V<LocalLeader>vs<CR>k
+
+imap <C-j> <Plug>snipMateNextOrTrigger
 
 " ex mode bites
 nnoremap Q <nop>
