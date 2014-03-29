@@ -26,10 +26,6 @@ color darkbone
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" move current line up & down
-noremap - ddp
-noremap _ ddkP
-
 " delete line
 inoremap <c-d> <esc>ddi
 
@@ -101,6 +97,8 @@ nnoremap <silent> <leader>rr :1,$retab<CR>
 nnoremap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
 nnoremap <silent> <leader>q :set invpaste<CR>:set paste?<CR>
 
+nnoremap - <c-w>-
+nnoremap + <c-w>+
 noremap <silent> <leader>h :wincmd h<cr>
 noremap <silent> <leader>j :wincmd j<cr>
 noremap <silent> <leader>k :wincmd k<cr>
