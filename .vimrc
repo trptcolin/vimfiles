@@ -88,7 +88,9 @@ augroup filetype_clojure
   autocmd BufNewFile,BufRead *.cljx set filetype=clojure
   autocmd FileType clojure setlocal lispwords+=describe,it,context,around
   autocmd FileType clojure setlocal wildignore+=target/**/*
-  autocmd FileType clojure vnoremap <buffer> <localleader>ns :s/\(\w\) \{2,}/\1 /<esc>
+  autocmd FileType clojure nnoremap <buffer> <localleader>ns1 v%:s/\(\w\)\ \{2,}/\1\ /e<esc>
+  autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\)
+  autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
 augroup END
 " }}}
 
