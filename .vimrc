@@ -1,7 +1,6 @@
 call pathogen#infect()
 
 filetype on
-filetype plugin on
 filetype indent on
 
 syntax on
@@ -18,12 +17,20 @@ set shiftwidth=2
 set autoindent
 set expandtab
 
+set incsearch
+
 setlocal foldlevelstart=0
+
+" very magic (which somehow means normal regexes)
+nnoremap / /\v
 
 let mapleader = ","
 let maplocalleader = "\\"
 
 color darkbone
+highlight Error ctermbg=red
+
+nnoremap <leader>W :match Error /\v +$/<cr>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -35,10 +42,7 @@ inoremap <c-d> <esc>ddi
 inoremap <c-u> <esc>viwUi
 nnoremap <c-u> viwU
 
-
 " Experimenting {{{
-inoremap jk <esc>
-vnoremap jk <esc>
 inoremap <esc> <nop>
 " }}}
 
@@ -74,10 +78,34 @@ augroup filetype_vim
 augroup END
 " }}}
 
-augroup no_whitespace
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
+function! ToggleWhitespaceDeletion(on, should_print)
+  if (a:on)
+    let message = "ON"
+  else
+    let message = "OFF"
+  endif
+
+  if (a:should_print)
+    echo "Turning " . message . " trailing whitespace deletion"
+  endif
+
+  augroup no_whitespace
+    autocmd!
+    if(a:on)
+      autocmd BufWritePre * :%s/\v\s+$//e
+    endif
+  augroup END
+endfunction
+
+call ToggleWhitespaceDeletion(1, 0)
+
+nnoremap <LocalLeader>sy :call ToggleWhitespaceDeletion(1, 1)<cr>
+nnoremap <LocalLeader>sn :call ToggleWhitespaceDeletion(0, 1)<cr>
+nnoremap <LocalLeader>sd :%s/\v\s+$//e<cr>
+nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
+
+autocmd FileType clojure setlocal lispwords+=describe,it,context,around
+autocmd FileType clojure setlocal wildignore+=target/**/*
 
 " Clojure file settings {{{
 augroup filetype_clojure
@@ -86,10 +114,8 @@ augroup filetype_clojure
   autocmd BufNewFile,BufRead *.cljs set filetype=clojure
   autocmd BufNewFile,BufRead *.edn set filetype=clojure
   autocmd BufNewFile,BufRead *.cljx set filetype=clojure
-  autocmd FileType clojure setlocal lispwords+=describe,it,context,around
-  autocmd FileType clojure setlocal wildignore+=target/**/*
   autocmd FileType clojure nnoremap <buffer> <localleader>ns1 v%:s/\(\w\)\ \{2,}/\1\ /e<esc>
-  autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\)
+  autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
   autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
 augroup END
 " }}}
