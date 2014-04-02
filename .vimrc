@@ -78,29 +78,25 @@ augroup filetype_vim
 augroup END
 " }}}
 
-function! ToggleWhitespaceDeletion(on, should_print)
-  if (a:on)
-    let message = "ON"
-  else
-    let message = "OFF"
-  endif
-
-  if (a:should_print)
-    echo "Turning " . message . " trailing whitespace deletion"
-  endif
-
+let g:trailing_whitespace_deletion = 0
+function! s:ToggleWhitespaceDeletion(should_print)
   augroup no_whitespace
     autocmd!
-    if(a:on)
+    if(g:trailing_whitespace_deletion)
+      let g:trailing_whitespace_deletion = 0
+    else
       autocmd BufWritePre * :%s/\v\s+$//e
+      let g:trailing_whitespace_deletion = 1
+    endif
+    if (a:should_print)
+      echo "Turning " . (g:trailing_whitespace_deletion ? "ON" : "OFF" ) . " trailing whitespace deletion"
     endif
   augroup END
 endfunction
 
-call ToggleWhitespaceDeletion(1, 0)
+call <SID>ToggleWhitespaceDeletion(0)
 
-nnoremap <LocalLeader>sy :call ToggleWhitespaceDeletion(1, 1)<cr>
-nnoremap <LocalLeader>sn :call ToggleWhitespaceDeletion(0, 1)<cr>
+nnoremap <LocalLeader>st :call <SID>ToggleWhitespaceDeletion(1)<cr>
 nnoremap <LocalLeader>sd :%s/\v\s+$//e<cr>
 nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
 
