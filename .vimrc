@@ -10,7 +10,6 @@ set nocompatible
 set number
 set vb
 set ruler
-set number
 set guioptions=ac
 set tabstop=2
 set shiftwidth=2
@@ -103,7 +102,13 @@ nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
 autocmd FileType clojure setlocal lispwords+=describe,it,context,around
 autocmd FileType clojure setlocal wildignore+=target/**/*
 
-" Clojure file settings {{{
+augroup filetype_ruby
+  autocmd!
+  autocmd BufNewFile,BufRead Rakefile set filetype=ruby
+  autocmd BufNewFile,BufRead Guardfile set filetype=ruby
+  autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+augroup END
+
 augroup filetype_clojure
   autocmd!
   autocmd BufNewFile,BufRead *.hiccup set filetype=clojure
@@ -114,7 +119,6 @@ augroup filetype_clojure
   autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
   autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
 augroup END
-" }}}
 
 augroup filetype_markdown
   autocmd!
