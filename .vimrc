@@ -63,8 +63,16 @@ noremap <leader>df :NERDTreeFind<CR>
 let g:NERDTreeChDirMode=2
 let g:NERDTreeShowHidden=1
 
-let g:CommandTMaxFiles=40000
-noremap <leader>t :CommandTFlush<CR>:CommandT<CR>
+let ctrlp_map = '<leader>t'
+nmap <leader>b :CtrlPBuffer<CR>
+let g:ctrlp_dont_split = 'nerdtree'
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': 'find %s -type f'
+  \ }
 
 let g:paredit_matchlines=1000
 
