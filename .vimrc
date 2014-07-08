@@ -180,7 +180,7 @@ vnoremap <LocalLeader>vs "vy :call VimuxRunCommand(@v, 0)
 " TODO: use functions or something instead of bindings?
 nmap <LocalLeader>vf ggVG<LocalLeader>vs<CR><C-o><C-o>
 nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
-nmap <LocalLeader>vl V<LocalLeader>vs<CR>k
+nmap <LocalLeader>vl V<LocalLeader>vs<CR>
 
 imap <C-j> <Plug>snipMateNextOrTrigger
 
