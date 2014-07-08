@@ -103,11 +103,17 @@ nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
 autocmd FileType clojure setlocal lispwords+=describe,it,context,around
 autocmd FileType clojure setlocal wildignore+=target/**/*
 
+augroup filetype_groovy
+  autocmd!
+  autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+augroup END
+
 augroup filetype_ruby
   autocmd!
   autocmd BufNewFile,BufRead Rakefile set filetype=ruby
   autocmd BufNewFile,BufRead Guardfile set filetype=ruby
   autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+  autocmd BufNewFile,BufRead .pryrc set filetype=ruby
 augroup END
 
 augroup filetype_clojure
