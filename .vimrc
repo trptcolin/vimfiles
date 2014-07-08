@@ -43,6 +43,7 @@ nnoremap <c-u> viwU
 
 " Experimenting {{{
 inoremap <esc> <nop>
+vnoremap <C-c> <Esc>
 " }}}
 
 " Command line settings {{{
