@@ -108,9 +108,6 @@ nnoremap <LocalLeader>st :call <SID>ToggleWhitespaceDeletion(1)<cr>
 nnoremap <LocalLeader>sd :%s/\v\s+$//e<cr>
 nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
 
-autocmd FileType clojure setlocal lispwords+=describe,it,context,around
-autocmd FileType clojure setlocal wildignore+=target/**/*
-
 augroup filetype_groovy
   autocmd!
   autocmd BufNewFile,BufRead *.gradle set filetype=groovy
@@ -130,6 +127,8 @@ augroup filetype_clojure
   autocmd BufNewFile,BufRead *.cljs set filetype=clojure
   autocmd BufNewFile,BufRead *.edn set filetype=clojure
   autocmd BufNewFile,BufRead *.cljx set filetype=clojure
+  autocmd BufNewFile,BufRead *.clj set filetype=clojure
+  autocmd FileType clojure set wildignore+=target/**/*
   autocmd FileType clojure nnoremap <buffer> <localleader>ns1 v%:s/\(\w\)\ \{2,}/\1\ /e<esc>
   autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
   autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
