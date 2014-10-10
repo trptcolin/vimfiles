@@ -35,7 +35,9 @@ git_bundles = [
   "git://github.com/vim-scripts/CSApprox.git",
   "git://github.com/vim-scripts/Colour-Sampler-Pack.git",
   "git://github.com/vim-scripts/jquery.git",
-  "git://github.com/godlygeek/tabular.git"
+  "git://github.com/vim-scripts/SyntaxRange.git",
+  "git://github.com/godlygeek/tabular.git",
+  "git://github.com/jceb/vim-orgmode.git"
 ]
 
 hg_bundles = [
