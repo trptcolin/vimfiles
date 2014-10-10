@@ -132,6 +132,10 @@ augroup filetype_clojure
   autocmd FileType clojure nnoremap <buffer> <localleader>ns1 v%:s/\(\w\)\ \{2,}/\1\ /e<esc>
   autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
   autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
+
+  nnoremap <C-e> :Eval<CR>
+  nnoremap E :%Eval<CR>
+  nnoremap T :RunTests<CR>
 augroup END
 
 augroup filetype_markdown
