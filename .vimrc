@@ -26,8 +26,12 @@ nnoremap / /\v
 let mapleader = ","
 let maplocalleader = "\\"
 
+let &colorcolumn="80,".join(range(120,999),",")
+
 color darkbone
 highlight Error ctermbg=red
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+
 
 nnoremap <leader>W :match Error /\v +$/<cr>
 
