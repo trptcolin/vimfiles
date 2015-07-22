@@ -15,6 +15,7 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 set expandtab
+set backspace=2
 
 set incsearch
 
@@ -26,12 +27,14 @@ nnoremap / /\v
 let mapleader = ","
 let maplocalleader = "\\"
 
-let &colorcolumn="80,".join(range(120,999),",")
+if &term == 'xterm' || &term == 'screen'
+  set t_Co=256
+endif
 
-color darkbone
-highlight Error ctermbg=red
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+colorscheme darkbone
 
+highlight LineTooLongMarker ctermfg=Black ctermbg=DarkGrey guifg=Black guibg=DarkGrey
+call matchadd('LineTooLongMarker', '\%81v', 100)
 
 nnoremap <leader>W :match Error /\v +$/<cr>
 
@@ -46,8 +49,9 @@ inoremap <c-u> <esc>viwUi
 nnoremap <c-u> viwU
 
 " Experimenting {{{
-inoremap <esc> <nop>
+" inoremap <esc> <nop>
 vnoremap <C-c> <Esc>
+inoremap <C-[> <Esc>
 " }}}
 
 " Command line settings {{{
@@ -72,7 +76,7 @@ nmap <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_dont_split = 'nerdtree'
 let g:ctrlp_user_command = {
   \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files'],
+    \ 1: ['.git', 'cd %s && git ls-files -ocm --exclude-standard'],
     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
     \ },
   \ 'fallback': 'find %s -type f'
@@ -137,7 +141,8 @@ augroup filetype_clojure
   autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
   autocmd FileType clojure nnoremap <buffer> <localleader>ns2 v%:Tabularize ns_separator<cr>
 
-  nnoremap <C-e> :Eval<CR>
+  "nnoremap <C-e> :Eval<CR>
+  nmap <C-e> cpp
   nnoremap E :%Eval<CR>
   nnoremap T :RunTests<CR>
 augroup END
@@ -146,6 +151,8 @@ augroup filetype_markdown
   autocmd!
   autocmd FileType markdown onoremap ih :<c-u>execute "normal! ?^[=\\-]\\+$\rkvg_"<cr>
   autocmd FileType markdown onoremap ah :<c-u>execute "normal! ?^[=\\-]\\+$\rg_vk0"<cr>
+  autocmd FileType markdown iabbrev <buffer> -mdash- —
+  autocmd FileType markdown iabbrev <buffer> -ndash- –
 augroup END
 
 augroup comments
@@ -202,6 +209,3 @@ imap <C-j> <Plug>snipMateNextOrTrigger
 " ex mode bites
 nnoremap Q <nop>
 
-if &term == 'xterm' || &term == 'screen'
-  set t_Co=256
-endif
