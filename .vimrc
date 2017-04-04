@@ -17,7 +17,15 @@ set autoindent
 set expandtab
 set backspace=2
 
+set breakindent
+
 set incsearch
+
+" allow arrow keys in insert mode
+imap OA <ESC>ki
+imap OB <ESC>ji
+imap OC <ESC>li
+imap OD <ESC>hi
 
 setlocal foldlevelstart=0
 
@@ -116,6 +124,11 @@ nnoremap <LocalLeader>st :call <SID>ToggleWhitespaceDeletion(1)<cr>
 nnoremap <LocalLeader>sd :%s/\v\s+$//e<cr>
 nnoremap <LocalLeader>sl :autocmd BufWritePre *<CR>
 
+augroup filetype_golang
+  autocmd!
+  autocmd BufNewFile,BufRead *.tf set filetype=go
+augroup END
+
 augroup filetype_groovy
   autocmd!
   autocmd BufNewFile,BufRead *.gradle set filetype=groovy
@@ -127,6 +140,34 @@ augroup filetype_ruby
   autocmd BufNewFile,BufRead Guardfile set filetype=ruby
   autocmd BufNewFile,BufRead Gemfile set filetype=ruby
   autocmd BufNewFile,BufRead .pryrc set filetype=ruby
+
+  autocmd FileType ruby nnoremap <buffer> <localleader>pp irequire 'pry'; binding.pry<cr><esc>
+
+  autocmd FileType ruby nnoremap <buffer> <localleader>rs :VimuxRunCommand("clear; bundle exec rspec " . expand("%") . ":" . line("."))<cr>
+  autocmd FileType ruby nnoremap <buffer> <localleader>rsp :VimuxRunCommand("clear; bundle exec rspec")<cr>
+  autocmd FileType ruby nnoremap <buffer> <localleader>rsf :VimuxRunCommand("clear; bundle exec rspec " . expand("%"))<cr>
+  autocmd FileType ruby nnoremap <buffer> <localleader>rsl :VimuxRunCommand("clear; bundle exec rspec " . expand("%") . ":" . line("."))<cr>
+
+augroup END
+
+augroup filetype_js
+  autocmd!
+  autocmd BufNewFile,BufRead *.hbs set filetype=html
+augroup END
+
+let g:user_emmet_settings = {
+\    'html': {
+\      'empty_element_suffix': ' />',
+\    }
+\}
+
+augroup filetype_html
+  autocmd!
+augroup END
+
+augroup filetype_haskell
+  autocmd!
+  autocmd BufNewFile,BufRead *.hs set filetype=haskell
 augroup END
 
 augroup filetype_clojure
@@ -136,6 +177,7 @@ augroup filetype_clojure
   autocmd BufNewFile,BufRead *.edn set filetype=clojure
   autocmd BufNewFile,BufRead *.cljx set filetype=clojure
   autocmd BufNewFile,BufRead *.clj set filetype=clojure
+  autocmd BufNewFile,BufRead *.cljc set filetype=clojure
   autocmd FileType clojure set wildignore+=target/**/*
   autocmd FileType clojure nnoremap <buffer> <localleader>ns1 v%:s/\(\w\)\ \{2,}/\1\ /e<esc>
   autocmd FileType clojure :AddTabularPattern! ns_separator /\(\ \)\@<=\(\(:as\)\|\(:refer\)\|\(:only\)\|\(:exclude\)\).*$
@@ -158,9 +200,12 @@ augroup END
 augroup comments
   autocmd!
   autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+  autocmd FileType javascript vnoremap <buffer> <localleader>c :s/^/\/\/ /<cr>
   autocmd FileType ruby nnoremap <buffer> <localleader>c I# <esc>
+  autocmd FileType ruby vnoremap <buffer> <localleader>c :s/^/# /<cr>
   autocmd FileType python nnoremap <buffer> <localleader>c I# <esc>
   autocmd FileType clojure nnoremap <buffer> <localleader>c I; <esc>
+  autocmd FileType clojure vnoremap <buffer> <localleader>c :s/^/; /<cr>
 augroup END
 
 augroup filetype_pml
@@ -197,7 +242,11 @@ noremap <Leader>ri :VimuxInspectRunner<CR>
 noremap <Leader>rq :VimuxCloseRunner<CR>
 noremap <Leader>rs :VimuxInterruptRunner<CR>
 noremap <LocalLeader>vp :VimuxPromptCommand<CR>
-vnoremap <LocalLeader>vs "vy :call VimuxRunCommand(@v, 0)
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+vnoremap <LocalLeader>vs "vy :call VimuxSlime()<CR>
 
 " TODO: use functions or something instead of bindings?
 nmap <LocalLeader>vf ggVG<LocalLeader>vs<CR><C-o><C-o>
@@ -205,6 +254,7 @@ nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
 nmap <LocalLeader>vl V<LocalLeader>vs<CR>
 
 imap <C-j> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " ex mode bites
 nnoremap Q <nop>
