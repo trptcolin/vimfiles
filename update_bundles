@@ -40,7 +40,10 @@ git_bundles = [
   "git://github.com/jceb/vim-orgmode.git",
 
   "git://github.com/mattn/emmet-vim.git",
-  "git://github.com/lambdatoast/elm.vim.git"
+  "git://github.com/lambdatoast/elm.vim.git",
+  "git://github.com/elixir-lang/vim-elixir.git",
+  "git://github.com/ElmCast/elm-vim.git",
+  "git://github.com/nvie/vim-flake8.git"
 ]
 
 hg_bundles = [
@@ -86,6 +89,6 @@ if system("which", "hg")
 end
 
 puts "####################"
-puts "# Don't forget to build extensions (e.g. Command-T) if you haven't already)"
+puts "# Don't forget to build extensions (e.g. Command-T) or install packages (e.g. `sudo pip install flake8`) if you haven't already."
 puts "####################"
 

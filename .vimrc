@@ -150,6 +150,11 @@ augroup filetype_ruby
 
 augroup END
 
+augroup filetype_python
+  autocmd!
+  autocmd BufWritePost *.py call Flake8()
+augroup END
+
 augroup filetype_js
   autocmd!
   autocmd BufNewFile,BufRead *.hbs set filetype=html
